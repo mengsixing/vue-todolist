@@ -13,9 +13,14 @@ const config = {
     path: path.join(__dirname, 'dist')
   },
   module: {
-    rules: [{
+    rules: [
+      {
         test: /\.vue$/,
         loader: 'vue-loader'
+      },
+      {
+        test: /\.jsx$/,
+        loader: 'babel-loader'
       },
       {
         test: /\.css$/,
@@ -29,6 +34,7 @@ const config = {
         use: [
           'style-loader',
           'css-loader',
+          'postcss-loader',
           'less-loader'
         ]
       },
@@ -44,7 +50,7 @@ const config = {
     ],
   },
   plugins: [
-    new VueLoaderPlugin(), 
+    new VueLoaderPlugin(),
     new HtmlWebpackPlugin(),
   ]
 }
@@ -55,14 +61,14 @@ if (isDev) {
     contentBase: path.join(__dirname, "dist"),
     compress: true,
     port: 9001,
-    hot:true,
+    hot: true,
   };
   // 热启动配置
   config.plugins.push(new webpack.HotModuleReplacementPlugin());
   config.plugins.push(new webpack.DefinePlugin({
     isDev: true,
   }));
-  
+
 }
 
 

@@ -18,6 +18,8 @@ export default {
 .div{
   color:red;
   background-image:url('../assets/test-image.png'); 
+  display:flex;
+  border-radius:50%;
 }
 </style>
 
