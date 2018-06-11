@@ -7,25 +7,77 @@
       placeholder="接下去要做什么？"
       @keyup.enter="addTodo"
     >
-    <Items />
-    <Tabs />
+    <Items v-for="item in todoFilter" :todoitem="item" :key="item.id" @deleteTodo="deleteTodo" />
+    <Tabs :filterType="filterType" :todo="todo" @clearAllCompleted="clearAllCompleted" @changeFilter="changeFilter" :filter="filter" />
   </div>
 </template>
 
 <script>
 import Items from './item.vue'
 import Tabs from './tabs.vue'
+
+const filterType ={
+        all:'all',
+        completed:'completed',
+        uncompleted:'uncompleted'
+      }
+
 export default {
   components:{
     Items,Tabs
   },
   data(){
-    return {}
+    return {
+      todo:[],
+      filter:filterType.all,
+      filterType:filterType
+    }
+  },
+  computed:{
+    todoFilter(){
+      if(this.filter===this.filterType.all){
+        return this.todo;
+      }
+      var isCompleted= this.filter===this.filterType.completed;
+      return this.todo.filter(item=>{
+        return item.completed===isCompleted;
+      });
+    }
+  },
+  methods:{
+    addTodo(e){
+      this.todo.unshift({
+        id:Math.random(),
+        completed:false,
+        content: e.target.value
+      });
+      e.target.value='';
+    },
+    deleteTodo(id){
+      this.todo=this.todo.filter(item=>{
+        return item.id!==id;
+      });
+    },
+    filterTodo(filter){
+      this.filter= filter;
+    },
+    changeFilter(type){
+      this.filter=type;
+    },
+    clearAllCompleted(){
+      var result = this.todo.filter(item=>{
+        return !item.completed
+      });
+      this.todo = result;
+    }
   }
 }
 </script>
 
 <style lang="less" scoped>
+.todo{
+  padding:20px;
+}
 .real-app{
   width: 600px;
   margin: 0 auto;

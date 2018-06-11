@@ -3,9 +3,10 @@
     <span class="left">{{unFinishedTodoLength}} items left</span>
     <span class="tabs">
       <span
-        v-for="state in states"
+        v-for="state in filterTypeArray"
         :key="state"
         :class="[state, filter === state ? 'actived' : '']"
+        @click="changeFilter(state)"
       >
         {{state}}
       </span>
@@ -16,10 +17,34 @@
 
 <script>
 export default {
-  data(){
-    return {
-      unFinishedTodoLength:1,
-      states:['1','2','3']
+  props: {
+    filter:{
+      type:String,
+      required:true
+    },
+    filterType:{
+      type:Object,
+      required:true
+    },
+    todo:{
+      type:Array,
+      required:true
+    }
+  },
+  computed:{
+    filterTypeArray(){
+      return Object.keys(this.filterType)
+    },
+    unFinishedTodoLength(){
+      return this.todo.filter(item=>{return !item.completed}).length;
+    }
+  },
+  methods:{
+    clearAllCompleted(){
+      this.$emit('clearAllCompleted');
+    },
+    changeFilter(state){
+      this.$emit('changeFilter',state);
     }
   }
 }

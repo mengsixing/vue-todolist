@@ -25,7 +25,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less">
 #app{
   position: absolute;
   left: 0;

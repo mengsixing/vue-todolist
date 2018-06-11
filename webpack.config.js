@@ -1,4 +1,5 @@
 const path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const {
   VueLoaderPlugin
 } = require('vue-loader');
@@ -10,6 +11,7 @@ const isDev = process.env.NODE_ENV === 'development';
 const config = {
   entry: path.join(__dirname, 'src/index.js'),
   output: {
+    filename:'[name]-[hash:8].js',
     path: path.join(__dirname, 'dist')
   },
   module: {
@@ -22,21 +24,22 @@ const config = {
         test: /\.jsx$/,
         loader: 'babel-loader'
       },
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
-      },
+      
       {
         test: /\.less$/,
         use: [
-          'style-loader',
-          'css-loader',
+          MiniCssExtractPlugin.loader,
+          "css-loader",
           'postcss-loader',
           'less-loader'
         ]
+        // use: [
+          
+        //   'style-loader',
+        //   'css-loader',
+          
+        //   'less-loader'
+        // ]
       },
       {
         test: /\.(png|svg|jpg|jpeg)$/,
@@ -52,6 +55,12 @@ const config = {
   plugins: [
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: "[name].css",
+      chunkFilename: "[id].css"
+    })
   ]
 }
 
@@ -68,7 +77,14 @@ if (isDev) {
   config.plugins.push(new webpack.DefinePlugin({
     isDev: true,
   }));
-
+} else {
+  config.mode = 'production';
+  config.optimization = {
+    splitChunks: {
+      // include all types of chunks
+      chunks: 'all'
+    }
+  }
 }
 
 
