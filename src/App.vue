@@ -1,25 +1,47 @@
 <template>
-  <div class="div">
-    {{text}}
+  <div id="app">
+    <div id="cover"></div>
+    <Header />
+    <Todo />
+    <Footer />
   </div>
 </template>
 
 <script>
+import Header from "./todo/header.vue";
+import Todo from "./todo/todo.vue";
+import Footer from "./todo/footer.jsx";
 export default {
-  data(){
+  components: {
+    Header,
+    Footer,
+    Todo
+  },
+  data() {
     return {
-      text:'123'
-    }
+      text: "123"
+    };
   }
-}
+};
 </script>
 
 <style>
-.div{
-  color:red;
-  background-image:url('../assets/test-image.png'); 
-  display:flex;
-  border-radius:50%;
+#app{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+#cover{
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #999;
+  opacity: .9;
+  z-index: -1;
 }
 </style>
 
