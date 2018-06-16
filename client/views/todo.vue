@@ -7,83 +7,103 @@
       placeholder="接下去要做什么？"
       @keyup.enter="addTodo"
     >
-    <Items v-for="item in todoFilter" :todoitem="item" :key="item.id" @deleteTodo="deleteTodo" />
-    <Tabs :filterType="filterType" :todo="todo" @clearAllCompleted="clearAllCompleted" @changeFilter="changeFilter" :filter="filter" />
+    <Items 
+      v-for="item in todoFilter" 
+      :todoitem="item" 
+      :key="item.id" 
+      @deleteTodo="deleteTodo" />
+    <Tabs 
+      :filter-type="filterType" 
+      :todo="todo" 
+      :filter="filter" 
+      @clearAllCompleted="clearAllCompleted" 
+      @changeFilter="changeFilter" />
   </div>
 </template>
 
 <script>
-import Items from './item.vue'
-import Tabs from './tabs.vue'
+import Items from './item.vue';
+import Tabs from './tabs.vue';
 
-const filterType ={
-        all:'all',
-        completed:'completed',
-        uncompleted:'uncompleted'
-      }
-
+const filterType = {
+	all: 'all',
+	completed: 'completed',
+	uncompleted: 'uncompleted'
+};
 export default {
-  components:{
-    Items,Tabs
-  },
-  data(){
-    return {
-      todo:[],
-      filter:filterType.all,
-      filterType:filterType
-    }
-  },
-  computed:{
-    todoFilter(){
-      if(this.filter===this.filterType.all){
-        return this.todo;
-      }
-      var isCompleted= this.filter===this.filterType.completed;
-      return this.todo.filter(item=>{
-        return item.completed===isCompleted;
-      });
-    }
-  },
-  methods:{
-    addTodo(e){
-      this.todo.unshift({
-        id:Math.random(),
-        completed:false,
-        content: e.target.value
-      });
-      e.target.value='';
-    },
-    deleteTodo(id){
-      this.todo=this.todo.filter(item=>{
-        return item.id!==id;
-      });
-    },
-    filterTodo(filter){
-      this.filter= filter;
-    },
-    changeFilter(type){
-      this.filter=type;
-    },
-    clearAllCompleted(){
-      var result = this.todo.filter(item=>{
-        return !item.completed
-      });
-      this.todo = result;
-    }
-  }
-}
+	components: {
+		Items,
+		Tabs
+	},
+	data () {
+
+		return {
+			todo: [],
+			filter: filterType.all,
+			filterType
+		};
+
+	},
+	computed: {
+		todoFilter () {
+
+			if (this.filter === this.filterType.all) {
+
+				return this.todo;
+
+			}
+			const isCompleted = this.filter === this.filterType.completed;
+
+			return this.todo.filter((item) => item.completed === isCompleted);
+
+		}
+	},
+	methods: {
+		addTodo (e) {
+
+			this.todo.unshift({
+				id: Math.random(),
+				completed: false,
+				content: e.target.value
+			});
+			e.target.value = '';
+
+		},
+		deleteTodo (id) {
+
+			this.todo = this.todo.filter((item) => item.id !== id);
+
+		},
+		filterTodo (filter) {
+
+			this.filter = filter;
+
+		},
+		changeFilter (type) {
+
+			this.filter = type;
+
+		},
+		clearAllCompleted () {
+
+			const result = this.todo.filter((item) => !item.completed);
+			this.todo = result;
+
+		}
+	}
+};
 </script>
 
 <style lang="less" scoped>
-.todo{
-  padding:20px;
+.todo {
+  padding: 20px;
 }
-.real-app{
+.real-app {
   width: 600px;
   margin: 0 auto;
   box-shadow: 0 0 5px #666;
 }
-.add-input{
+.add-input {
   position: relative;
   margin: 0;
   width: 100%;
@@ -101,7 +121,7 @@ export default {
   font-smoothing: antialiased;
   padding: 16px 16px 16px 60px;
   border: none;
-  box-shadow: inset 0 -2px 1px rgba(0,0,0,0.03);
+  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
 }
 </style>
 

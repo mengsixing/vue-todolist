@@ -1,27 +1,29 @@
 <template>
   <div id="app">
     <div id="cover"></div>
-    <Header />
-    <Todo />
-    <Footer />
+    <Header></Header>
+    <Todo></Todo>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
-import Header from "./layout/header.vue";
-import Todo from "./views/todo.vue";
-import Footer from "./layout/footer.jsx";
+import Header from './layout/header.vue';
+import Todo from './views/todo.vue';
+import Footer from './layout/footer.jsx';
 export default {
-  components: {
-    Header,
-    Footer,
-    Todo
-  },
-  data() {
-    return {
-      text: "123"
-    };
-  }
+	components: {
+		Header,
+		Footer,
+		Todo
+	},
+	data () {
+
+		return {
+			text: '123'
+		};
+
+	}
 };
 </script>
 
@@ -44,7 +46,3 @@ export default {
   z-index: -1;
 }
 </style>
-
-
-
-

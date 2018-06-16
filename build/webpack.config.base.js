@@ -1,16 +1,25 @@
 const path = require('path');
 
-const config = {
+let config = {
   entry: path.join(__dirname, 'client/index.js'),
   output: {
     filename: 'bundle.js',
     path: path.join(__dirname, '../dist')
   },
   module: {
-    rules: [
+    rules: [{
+        enforce: 'pre',
+        loader: 'eslint-loader',
+        test: /\.(jsx|js|vue)$/
+      },asd
       {
         test: /\.vue$/,
-        loader: 'vue-loader'
+        loader: 'vue-loader',
+        options: {
+          compilerOptions: {
+            preserveWhitespace: false
+          }
+        }
       },
       {
         test: /\.jsx$/,
@@ -19,7 +28,7 @@ const config = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude:'/node_modules/'
+        exclude: '/node_modules/'
       },
       {
         test: /\.(png|svg|jpg|jpeg)$/,
@@ -27,12 +36,11 @@ const config = {
           loader: 'url-loader',
           options: {
             limit: 1024,
-            name:'resource/[path][name]-[hash:8].[ext]'
+            name: 'resource/[path][name]-[hash:8].[ext]'
           }
         }]
       }
-    ],
+    ]
   }
-}
-
+};
 module.exports = config;

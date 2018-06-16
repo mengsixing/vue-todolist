@@ -1,16 +1,17 @@
 <template>
   <header class="main-header">
-    <h2>{{text}}</h2>
+    <h2>{{ text }}</h2>
   </header>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      text: "header"
-    };
-  }
+	data () {
+
+		return {
+			text: 'header'
+		};
+	}
 };
 </script>
 
@@ -26,5 +27,3 @@ export default {
   }
 }
 </style>
-
-

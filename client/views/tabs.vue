@@ -1,6 +1,6 @@
 <template>
   <div class="helper">
-    <span class="left">{{unFinishedTodoLength}} items left</span>
+    <span class="left">{{ unFinishedTodoLength }} items left</span>
     <span class="tabs">
       <span
         v-for="state in filterTypeArray"
@@ -8,51 +8,53 @@
         :class="[state, filter === state ? 'actived' : '']"
         @click="changeFilter(state)"
       >
-        {{state}}
+        {{ state }}
       </span>
     </span>
-    <span class="clear" @click="clearAllCompleted">Clear Completed</span>
+    <span 
+      class="clear" 
+      @click="clearAllCompleted">Clear Completed</span>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    filter:{
-      type:String,
-      required:true
+    filter: {
+      type: String,
+      required: true
     },
-    filterType:{
-      type:Object,
-      required:true
+    filterType: {
+      type: Object,
+      required: true
     },
-    todo:{
-      type:Array,
-      required:true
+    todo: {
+      type: Array,
+      required: true
     }
   },
-  computed:{
-    filterTypeArray(){
-      return Object.keys(this.filterType)
+  computed: {
+    filterTypeArray() {
+      return Object.keys(this.filterType);
     },
-    unFinishedTodoLength(){
-      return this.todo.filter(item=>{return !item.completed}).length;
+    unFinishedTodoLength() {
+      return this.todo.filter(item => !item.completed).length;
     }
   },
-  methods:{
-    clearAllCompleted(){
-      this.$emit('clearAllCompleted');
+  methods: {
+    clearAllCompleted() {
+      this.$emit("clearAllCompleted");
     },
-    changeFilter(state){
-      this.$emit('changeFilter',state);
+    changeFilter(state) {
+      this.$emit("changeFilter", state);
     }
   }
-}
+};
 </script>
 
 
 <style lang="less" scoped>
-.helper{
+.helper {
   font-weight: 100;
   display: flex;
   justify-content: space-between;
@@ -62,21 +64,24 @@ export default {
   font-size: 14px;
   font-smoothing: antialiased;
 }
-.left, .clear, .tabs{
+.left,
+.clear,
+.tabs {
   padding: 0 10px;
   box-sizing: border-box;
 }
-.left, .clear{
+.left,
+.clear {
   width: 150px;
 }
-.left{
+.left {
   text-align: left;
 }
-.clear{
+.clear {
   text-align: right;
   cursor: pointer;
 }
-.tabs{
+.tabs {
   width: 200px;
   display: flex;
   justify-content: space-around;
@@ -84,9 +89,9 @@ export default {
     display: inline-block;
     padding: 0 10px;
     cursor: pointer;
-    border: 1px solid rgba(175,47,47,0);
-    &.actived{
-      border-color: rgba(175,47,47,0.4);
+    border: 1px solid rgba(175, 47, 47, 0);
+    &.actived {
+      border-color: rgba(175, 47, 47, 0.4);
       border-radius: 5px;
     }
   }
