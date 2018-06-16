@@ -11,7 +11,7 @@ let config = {
         enforce: 'pre',
         loader: 'eslint-loader',
         test: /\.(jsx|js|vue)$/
-      },asd
+      },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -41,6 +41,12 @@ let config = {
         }]
       }
     ]
-  }
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    },
+    runtimeChunk:true,
+  },
 };
 module.exports = config;

@@ -1,3 +1,4 @@
+
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const {
@@ -63,15 +64,11 @@ if (isDev) {
 				]
 			}]
 		},
-		optimization: {
-			splitChunks: {
-				chunks: 'all'
-			}
-		},
+
 		plugins: defaultPlugins.concat([
 			new MiniCssExtractPlugin({
 				filename: '[name]-[hash:8].css',
-				chunkFilename: '[id].css'
+				chunkFilename: '[name]-[hash:8].css'
 			}),
 		])
 	});

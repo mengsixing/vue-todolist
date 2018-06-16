@@ -5,10 +5,16 @@
     ],
     "env":{
       "browser": true,
-      "commonjs": true
+      "commonjs": true,
+      "node": true
     },
     "rules": {
       "vue/html-self-closing": "off"
     },
-    "parser": "babel-eslint"
+    "parserOptions":{
+      "parser": "babel-eslint"
+    },
+    "plugins":[
+      "html"
+    ]
   }
