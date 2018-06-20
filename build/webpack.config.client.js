@@ -14,7 +14,9 @@ const isDev = process.env.NODE_ENV === 'development';
 // 客户端公用的plugin
 const defaultPlugins = [
 	new VueLoaderPlugin(),
-	new HtmlWebpackPlugin(),
+	new HtmlWebpackPlugin({
+    template:path.join(__dirname,'template.html')
+  }),
 ];
 
 let config;
@@ -37,7 +39,8 @@ if (isDev) {
 			contentBase: path.join(__dirname, '../dist'),
 			compress: true,
 			port: 9001,
-			hot: true,
+      hot: true,
+      historyApiFallback: true,
 		},
 		plugins: defaultPlugins.concat([
 			new webpack.HotModuleReplacementPlugin(),

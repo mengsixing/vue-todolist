@@ -1,0 +1,2 @@
+import './lifecycle/index.js'
+

@@ -9,7 +9,8 @@
     "lint-fix": "eslint --fix --ext js --ext jsx --ext vue ./client",
     "prebuild": "rimraf ./dist",
     "build": "webpack --config ./build/webpack.config.client.js",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.config.client.js"
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.config.client.js",
+    "practice": "cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.config.practive.js"
   },
   "husky": {
     "hooks": {
@@ -30,6 +31,7 @@
   "dependencies": {
     "postcss-loader": "^2.1.5",
     "vue": "^2.5.16",
+    "vue-router": "^3.0.1",
     "vue-template-compiler": "^2.5.16"
   },
   "devDependencies": {
