@@ -1,13 +1,12 @@
-import Todo from '../views/todo.vue'
-import Login from '../views/login.vue'
+// import Todo from '../views/todo/todo.vue'
+// import Login from '../views/login/login.vue'
 
 var routes = [{
-  path:'/app',
-  component:Todo
-},{
-  path:'/login',
-  component:Login
+  path: '/app',
+  component: () => import('../views/todo/todo.vue')
+}, {
+  path: '/login',
+  component: () => import('../views/login/login.vue')
 }];
 
 export default routes;
-

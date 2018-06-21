@@ -1,14 +1,14 @@
 <template>
   <div :class="['todo-item', todoitem.completed ? 'completed' : '']">
-    <input 
+    <input
       v-model="todoitem.completed"
       :id="todoitem.id"
       type="checkbox"
       class="toggle"
     >
     <label :for="todoitem.id">{{ todoitem.content }}</label>
-    <button 
-      class="destory" 
+    <button
+      class="destory"
       @click="deleteTodo"></button>
   </div>
 </template>
@@ -75,10 +75,10 @@ export default {
   appearance: none;
   outline: none;
   &:after {
-    content: url("../assets/images/round.svg");
+    content: url("../../assets/images/round.svg");
   }
   &:checked:after {
-    content: url("../assets/images/done.svg");
+    content: url("../../assets/images/done.svg");
   }
 }
 .destory {

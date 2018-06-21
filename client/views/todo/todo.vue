@@ -7,16 +7,16 @@
       placeholder="接下去要做什么？"
       @keyup.enter="addTodo"
     >
-    <Items 
-      v-for="item in todoFilter" 
-      :todoitem="item" 
-      :key="item.id" 
+    <Items
+      v-for="item in todoFilter"
+      :todoitem="item"
+      :key="item.id"
       @deleteTodo="deleteTodo" />
-    <Tabs 
-      :filter-type="filterType" 
-      :todo="todo" 
-      :filter="filter" 
-      @clearAllCompleted="clearAllCompleted" 
+    <Tabs
+      :filter-type="filterType"
+      :todo="todo"
+      :filter="filter"
+      @clearAllCompleted="clearAllCompleted"
       @changeFilter="changeFilter" />
   </div>
 </template>
@@ -95,6 +95,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
 .todo {
   padding: 20px;
 }
