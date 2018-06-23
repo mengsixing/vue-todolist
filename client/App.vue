@@ -4,7 +4,7 @@
     <Header></Header>
     <router-link to="/login">login</router-link>
     <router-link to="/app">todo</router-link>
-    <div>数字：{{number}}</div>
+    <div>数字：{{number}}  number:{{count}}</div>
     <transition name="fade">
       <router-view />
     </transition>
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import {mapState,mapMutations,mapGetters,mapActions} from 'vuex';
 import Header from "./layout/header.vue";
 import Footer from "./layout/footer.jsx";
 export default {
@@ -25,15 +26,25 @@ export default {
       text: "123"
     };
   },
+  methods:{
+    ...mapMutations([
+      'increment'
+    ]),
+    ...mapActions([
+      'incrementAsync'
+    ])
+  },
+
   mounted(){
-    setInterval(()=>{
-      this.$store.commit('increment');
-    },1000);
+    this.incrementAsync();
   },
   computed:{
     number(){
       return this.$store.state.count;
-    }
+    },
+    ...mapGetters({
+      count: 'countAdd5',
+    }),
   },
 };
 </script>
