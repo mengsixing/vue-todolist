@@ -1,4 +1,5 @@
 const path = require('path');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 let config = {
   entry: path.join(__dirname, 'client/index.js'),
@@ -42,11 +43,14 @@ let config = {
       }
     ]
   },
-  optimization: {
-    splitChunks: {
-      chunks: 'all'
-    },
-    runtimeChunk:true,
-  },
+  plugins: [
+    new VueLoaderPlugin()
+  ],
+  // optimization: {
+  //   splitChunks: {
+  //     chunks: 'all'
+  //   },
+  //   runtimeChunk:true,
+  // },
 };
 module.exports = config;

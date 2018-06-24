@@ -8,6 +8,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 
+const VueClientPlugin = require('vue-server-renderer/client-plugin');
+
 const baseConfig = require('./webpack.config.base.js');
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -17,6 +19,7 @@ const defaultPlugins = [
 	new HtmlWebpackPlugin({
     template:path.join(__dirname,'template.html')
   }),
+  new VueClientPlugin()
 ];
 
 let config;
@@ -36,10 +39,12 @@ if (isDev) {
 			}]
 		},
 		devServer: {
-			contentBase: path.join(__dirname, '../dist'),
-			compress: true,
 			port: 9001,
       hot: true,
+      overlay: {
+        errors: true
+      },
+      headers: { 'Access-Control-Allow-Origin': '*' },
       historyApiFallback: true,
 		},
 		plugins: defaultPlugins.concat([
