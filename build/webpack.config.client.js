@@ -13,6 +13,8 @@ const VueClientPlugin = require('vue-server-renderer/client-plugin');
 const baseConfig = require('./webpack.config.base.js');
 const isDev = process.env.NODE_ENV === 'development';
 
+console.log('是dev吗？',isDev);
+
 // 客户端公用的plugin
 const defaultPlugins = [
 	new VueLoaderPlugin(),
