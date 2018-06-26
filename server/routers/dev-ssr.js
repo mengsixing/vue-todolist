@@ -59,9 +59,8 @@ const handleSSR = async (ctx) => {
     'utf-8'
   );
 
-  debugger
   const renderer = VueServerRenderer.createBundleRenderer(bundle, {
-    inject: false,
+    inject: true,
     clientManifest
   });
 

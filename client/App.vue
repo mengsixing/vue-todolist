@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <div id="cover"></div>
+    hello world
+    <!-- <div id="cover"></div>
     <Header></Header>
     <router-link to="/login">login</router-link>
     <router-link to="/app">todo</router-link>
@@ -8,7 +9,7 @@
     <transition name="fade">
       <router-view />
     </transition>
-    <Footer></Footer>
+    <Footer></Footer> -->
   </div>
 </template>
 

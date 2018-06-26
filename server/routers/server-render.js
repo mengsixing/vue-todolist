@@ -11,6 +11,7 @@ module.exports = async (ctx, renderer, template) => {
 
 
   try {
+    debugger
     const appString = await renderer.renderToString(context);
 
     if (context.router.currentRoute.fullPath !== ctx.path) {
