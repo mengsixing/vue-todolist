@@ -1,6 +1,14 @@
 <template>
   <div id="app">
-    hello world.2
+    <div id="cover"></div>
+    <Header></Header>
+    <router-link to="/login">login</router-link>
+    <router-link to="/app">todo</router-link>
+    <div>数字：{{number}}  number:{{count}}</div>
+    <transition name="fade">
+      <router-view />
+    </transition>
+    <Footer></Footer>
   </div>
 </template>
 

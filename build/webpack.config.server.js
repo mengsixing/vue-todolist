@@ -1,8 +1,6 @@
 const path = require('path')
 const ExtractPlugin = require('extract-text-webpack-plugin')
 const webpack = require('webpack')
-const merge = require('webpack-merge')
-const baseConfig = require('./webpack.config.base')
 const VueServerPlugin = require('vue-server-renderer/server-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
@@ -25,8 +23,8 @@ if (isDev) {
   plugins.push(new VueServerPlugin())
 }
 
-config = merge(baseConfig, {
-  mode:'development',
+config = {
+  mode: 'development',
   target: 'node',
   entry: path.join(__dirname, '../client/server-entry.js'),
   devtool: 'source-map',
@@ -37,8 +35,7 @@ config = merge(baseConfig, {
   },
   externals: Object.keys(require('../package.json').dependencies),
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.vue$/,
         loader: 'vue-loader',
       },
@@ -53,15 +50,13 @@ config = merge(baseConfig, {
       },
       {
         test: /\.(gif|jpg|jpeg|png|svg)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 1024,
-              name: 'resources/[path][name].[hash:8].[ext]'
-            }
+        use: [{
+          loader: 'url-loader',
+          options: {
+            limit: 1024,
+            name: 'resources/[path][name].[hash:8].[ext]'
           }
-        ]
+        }]
       },
       {
         test: /\.less$/,
@@ -82,6 +77,6 @@ config = merge(baseConfig, {
     ]
   },
   plugins
-})
+};
 
 module.exports = config

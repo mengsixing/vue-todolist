@@ -12,15 +12,13 @@ module.exports = async (ctx, renderer, template) => {
 
   try {
     const appString = await renderer.renderToString(context);
-    debugger
-    if (context.router.currentRoute.fullPath !== ctx.path) {
-      return ctx.redirect(context.router.currentRoute.fullPath)
-    }
-
+    // if (context.router.currentRoute.fullPath !== ctx.path) {
+    //   return ctx.redirect(context.router.currentRoute.fullPath)
+    // }
     const html = ejs.render(template, {
       appString,
-      style: context.renderStyles,
-      scripts: context.renderScripts,
+      style: context.renderStyles(),
+      scripts: context.renderScripts(),
     });
 
     ctx.body = html;
