@@ -4,6 +4,7 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const baseConfig = require('./webpack.config.base')
 const VueServerPlugin = require('vue-server-renderer/server-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 let config
 
@@ -16,7 +17,8 @@ const plugins = [
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
     'process.env.VUE_ENV': '"server"'
-  })
+  }),
+  new VueLoaderPlugin()
 ]
 
 if (isDev) {
@@ -37,7 +39,32 @@ config = merge(baseConfig, {
   module: {
     rules: [
       {
-        test: /\.less/,
+        test: /\.vue$/,
+        loader: 'vue-loader',
+      },
+      {
+        test: /\.jsx$/,
+        loader: 'babel-loader'
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.(gif|jpg|jpeg|png|svg)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 1024,
+              name: 'resources/[path][name].[hash:8].[ext]'
+            }
+          }
+        ]
+      },
+      {
+        test: /\.less$/,
         use: ExtractPlugin.extract({
           fallback: 'vue-style-loader',
           use: [
@@ -51,11 +78,10 @@ config = merge(baseConfig, {
             'less-loader'
           ]
         })
-      }
+      },
     ]
   },
   plugins
 })
-
 
 module.exports = config

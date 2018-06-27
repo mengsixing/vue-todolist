@@ -1,52 +1,39 @@
 <template>
   <div id="app">
-    hello world
-    <!-- <div id="cover"></div>
-    <Header></Header>
-    <router-link to="/login">login</router-link>
-    <router-link to="/app">todo</router-link>
-    <div>数字：{{number}}  number:{{count}}</div>
-    <transition name="fade">
-      <router-view />
-    </transition>
-    <Footer></Footer> -->
+    hello world.2
   </div>
 </template>
 
 <script>
-import {mapState,mapMutations,mapGetters,mapActions} from 'vuex';
-import Header from "./layout/header.vue";
-import Footer from "./layout/footer.jsx";
+import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
+// import Header from "./layout/header.vue";
+// import Footer from "./layout/footer.jsx";
 export default {
-  components: {
-    Header,
-    Footer
-  },
+  // components: {
+  //   Header,
+  //   Footer
+  // },
   data() {
     return {
       text: "123"
     };
   },
-  methods:{
-    ...mapMutations([
-      'increment'
-    ]),
-    ...mapActions([
-      'incrementAsync'
-    ])
+  methods: {
+    ...mapMutations(["increment"]),
+    ...mapActions(["incrementAsync"])
   },
 
-  mounted(){
+  mounted() {
     this.incrementAsync();
   },
-  computed:{
-    number(){
+  computed: {
+    number() {
       return this.$store.state.count;
     },
     ...mapGetters({
-      count: 'countAdd5',
-    }),
-  },
+      count: "countAdd5"
+    })
+  }
 };
 </script>
 

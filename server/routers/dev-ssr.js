@@ -35,7 +35,7 @@ serverCompiler.watch({},(err, stats) => {
     'vue-ssr-server-bundle.json'
   );
 
-  bundle =  JSON.stringify( mfs.readFileSync(bundlePath,'utf-8'));
+  bundle =  JSON.parse( mfs.readFileSync(bundlePath,'utf-8'));
 
   console.log('new bundle generated');
 
@@ -60,7 +60,7 @@ const handleSSR = async (ctx) => {
   );
 
   const renderer = VueServerRenderer.createBundleRenderer(bundle, {
-    inject: true,
+    inject: false,
     clientManifest
   });
 

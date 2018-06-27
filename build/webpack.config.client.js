@@ -33,7 +33,7 @@ if (isDev) {
 			rules: [{
 				test: /\.less$/,
 				use: [
-					'style-loader',
+					'vue-style-loader',
 					'css-loader',
 					'postcss-loader',
 					'less-loader'
@@ -79,8 +79,16 @@ if (isDev) {
 			new MiniCssExtractPlugin({
 				filename: '[name]-[hash:8].css',
 				chunkFilename: '[name]-[hash:8].css'
-			}),
-		])
+      }),
+      new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor'
+      }),
+      new webpack.optimize.CommonsChunkPlugin({
+        name: 'runtime'
+      }),
+      new webpack.NamedChunksPlugin()
+    ]),
+
 	});
 }
 
