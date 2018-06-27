@@ -7,6 +7,9 @@ var routes = [{
 }, {
   path: '/login',
   component: () => import('../views/login/login.vue')
+},{
+  path: '/',
+  component: () => import('../views/todo/todo.vue')
 }];
 
 export default routes;
