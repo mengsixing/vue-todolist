@@ -26,9 +26,10 @@ config = {
   output: {
     libraryTarget: 'commonjs2',
     filename: 'server-entry.js',
-    path: path.join(__dirname, '../server-build'),
+    path: path.join(__dirname, '../server-build')
+
   },
-  // externals: Object.keys(require('../package.json').dependencies),
+  externals: Object.keys(require('../package.json').dependencies),
   module: {
     rules: [{
         test: /\.vue$/,
@@ -62,19 +63,20 @@ config = {
         }]
       },
       {
-        test: /\.less$/,
+        test: /\.less/,
         use: ExtractPlugin.extract({
           fallback: 'vue-style-loader',
-          use: [
-            'css-loader',
-            {
-              loader: 'postcss-loader',
-              options: {
-                sourceMap: true
-              }
-            },
-            'less-loader'
-          ]
+          use: [{
+            loader: 'css-loader' // translates CSS into CommonJS
+          }, {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true
+            }
+          }, {
+            loader: 'less-loader' // compiles Less to CSS
+          }]
+
         })
       },
     ]
