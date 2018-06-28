@@ -18,8 +18,8 @@ serverCompiler.outputFileSystem = mfs;
 
 let bundle;
 
-serverCompiler.watch({},(err, stats) => {
-  if(err){
+serverCompiler.watch({}, (err, stats) => {
+  if (err) {
     throw err;
   }
   stats = stats.toJson();
@@ -35,7 +35,7 @@ serverCompiler.watch({},(err, stats) => {
     'vue-ssr-server-bundle.json'
   );
 
-  bundle =  JSON.parse( mfs.readFileSync(bundlePath,'utf-8'));
+  bundle = JSON.parse(mfs.readFileSync(bundlePath, 'utf-8'));
 
   console.log('new bundle generated');
 
@@ -43,8 +43,8 @@ serverCompiler.watch({},(err, stats) => {
 
 
 const handleSSR = async (ctx) => {
-  if(!bundle){
-    ctx.body='你等一会，别着急。';
+  if (!bundle) {
+    ctx.body = '你等一会，别着急。';
     return;
   }
 
@@ -64,11 +64,10 @@ const handleSSR = async (ctx) => {
     clientManifest
   });
 
-  await serverRender(ctx,renderer,template);
+  await serverRender(ctx, renderer, template);
 }
 
 const router = new Router();
-router.get('*',handleSSR);
+router.get('*', handleSSR);
 
 module.exports = router;
-

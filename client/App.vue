@@ -14,13 +14,13 @@
 
 <script>
 import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
-// import Header from "./layout/header.vue";
-// import Footer from "./layout/footer.jsx";
+import Header from "./layout/header.vue";
+import Footer from "./layout/footer.jsx";
 export default {
-  // components: {
-  //   Header,
-  //   Footer
-  // },
+  components: {
+    Header,
+    Footer
+  },
   data() {
     return {
       text: "123"

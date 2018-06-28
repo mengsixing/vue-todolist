@@ -8,20 +8,15 @@ let config
 
 process.env.NODE_ENV = 'development'
 
-const isDev = process.env.NODE_ENV === 'development'
-
 const plugins = [
   new ExtractPlugin('styles.[hash:8].css'),
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
     'process.env.VUE_ENV': '"server"'
   }),
-  new VueLoaderPlugin()
+  new VueLoaderPlugin(),
+  new VueServerPlugin()
 ]
-
-if (isDev) {
-  plugins.push(new VueServerPlugin())
-}
 
 config = {
   mode: 'development',
@@ -33,11 +28,19 @@ config = {
     filename: 'server-entry.js',
     path: path.join(__dirname, '../server-build'),
   },
-  externals: Object.keys(require('../package.json').dependencies),
+  // externals: Object.keys(require('../package.json').dependencies),
   module: {
     rules: [{
         test: /\.vue$/,
         loader: 'vue-loader',
+        options: {
+          preserveWhitepace: true,
+          extractCSS: false,
+          cssModules: {
+            localIdentName: '[hash:base64:5]',
+            camelCase: true
+          }
+        }
       },
       {
         test: /\.jsx$/,

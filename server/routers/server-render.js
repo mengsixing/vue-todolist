@@ -4,18 +4,13 @@ const ejs = require('ejs');
 module.exports = async (ctx, renderer, template) => {
   ctx.headers['Content-Type'] = 'text/html';
 
-  const context = {
+  let context = {
     url: ctx.path
   };
 
 
-
   try {
     const appString = await renderer.renderToString(context);
-    debugger
-    // if (context.router.currentRoute.fullPath !== ctx.path) {
-    //   return ctx.redirect(context.router.currentRoute.fullPath)
-    // }
     const html = ejs.render(template, {
       appString,
       style: context.renderStyles(),
@@ -24,7 +19,7 @@ module.exports = async (ctx, renderer, template) => {
 
     ctx.body = html;
   } catch (err) {
-    console.log('render err',err);
+    console.log('render err', err);
     throw err;
   }
 }

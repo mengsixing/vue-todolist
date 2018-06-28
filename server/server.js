@@ -13,9 +13,9 @@ app.use(async (ctx, next) => {
     await next();
   } catch (err) {
     console.log(err);
-    if(isDev){
+    if (isDev) {
       ctx.body = err.message;
-    }else{
+    } else {
       ctx.body = 'please try again laster.'
     }
   }
@@ -26,7 +26,6 @@ const PORT = process.env.PORT || 3333;
 
 app.use(pageRouter.routes()).use(pageRouter.allowedMethods);
 
-app.listen(PORT,HOST,()=>{
+app.listen(PORT, HOST, () => {
   console.log(`server is listening on ${HOST}`);
 });
-

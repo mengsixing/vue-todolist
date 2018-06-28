@@ -1,19 +1,53 @@
 import createApp from './create-app'
 
-export default context => {
-  return new Promise((resolve,reject)=>{
-    const {
-      app,
-      router,
-    } = createApp();
+// export default context => {
+//   return new Promise((resolve, reject) => {
+//     const {
+//       app,
+//       router,
+//     } = createApp();
 
-    router.push(context.url);
-    router.onReady(()=>{
-      const matchedComponents = router.getMatchedComponents();
-      if(!matchedComponents.length){
-        return reject(new Error('no component matched'));
+//     router.push(context.url);
+
+
+//     router.onReady(() => {
+//       const matchedComponents = router.getMatchedComponents()
+//       if (!matchedComponents.length) {
+//         return reject({
+//           code: 404
+//         })
+//       }
+//       resolve(app)
+//     }, reject)
+//   });
+// }
+
+
+
+
+export default context => {
+  return new Promise((resolve, reject) => {
+    const { app, router } = createApp()
+
+    router.push(context.url)
+
+    router.onReady(() => {
+      const matchedComponents = router.getMatchedComponents()
+      if (!matchedComponents.length) {
+        return reject(new Error('no component matched'))
       }
-      resolve(app);
-    });
-  });
+      Promise.all(matchedComponents.map(Component => {
+        if (Component.asyncData) {
+          return Component.asyncData({
+            route: router.currentRoute,
+            router
+          })
+        }
+      })).then(() => {
+        context.router = router
+        resolve(app)
+      })
+    })
+  })
 }
+
