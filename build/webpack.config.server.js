@@ -2,7 +2,9 @@ const path = require('path')
 const ExtractPlugin = require('extract-text-webpack-plugin')
 const webpack = require('webpack')
 const VueServerPlugin = require('vue-server-renderer/server-plugin')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const {
+  VueLoaderPlugin
+} = require('vue-loader');
 
 let config
 
@@ -64,20 +66,18 @@ config = {
       },
       {
         test: /\.less/,
-        use: ExtractPlugin.extract({
-          fallback: 'vue-style-loader',
-          use: [{
-            loader: 'css-loader' // translates CSS into CommonJS
-          }, {
-            loader: 'postcss-loader',
-            options: {
-              sourceMap: true
-            }
-          }, {
-            loader: 'less-loader' // compiles Less to CSS
-          }]
-
-        })
+        use: [{
+          loader: 'vue-style-loader'
+        }, {
+          loader: 'css-loader' // translates CSS into CommonJS
+        }, {
+          loader: 'postcss-loader',
+          options: {
+            sourceMap: true
+          }
+        }, {
+          loader: 'less-loader' // compiles Less to CSS
+        }]
       },
     ]
   },
