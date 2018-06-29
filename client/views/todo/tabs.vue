@@ -11,8 +11,8 @@
         {{ state }}
       </span>
     </span>
-    <span 
-      class="clear" 
+    <span
+      class="clear"
       @click="clearAllCompleted">Clear Completed</span>
   </div>
 </template>
@@ -62,7 +62,6 @@ export default {
   line-height: 30px;
   background-color: #fff;
   font-size: 14px;
-  font-smoothing: antialiased;
 }
 .left,
 .clear,
