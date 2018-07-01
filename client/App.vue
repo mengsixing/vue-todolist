@@ -4,7 +4,7 @@
     <Header></Header>
     <router-link to="/login">login</router-link>
     <router-link to="/app">todo</router-link>
-    <div>数字：{{number}}  number:{{count}}</div>
+    <div>数字测试：{{number}}  number:{{count}}</div>
     <transition name="fade">
       <router-view />
     </transition>

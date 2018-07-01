@@ -1,5 +1,5 @@
-const Router = require('koa-router');
 const path = require('path');
+const Router = require('koa-router');
 const axios = require('axios');
 const fs = require('fs');
 const MemoryFS = require('memory-fs');
@@ -7,13 +7,10 @@ const webpack = require('webpack');
 const VueServerRenderer = require('vue-server-renderer');
 
 const serverRender = require('./server-render');
-
 const serverConfig = require('../../build/webpack.config.server.js');
 
 const serverCompiler = webpack(serverConfig);
-
 const mfs = new MemoryFS();
-
 serverCompiler.outputFileSystem = mfs;
 
 let bundle;
@@ -49,7 +46,7 @@ const handleSSR = async (ctx) => {
   }
 
   const clientManifestResp = await axios.get(
-    'http://127.0.0.1:9001/vue-ssr-client-manifest.json'
+    'http://127.0.0.1:9001/public/vue-ssr-client-manifest.json'
   );
 
   const clientManifest = clientManifestResp.data;
@@ -63,8 +60,6 @@ const handleSSR = async (ctx) => {
     inject: false,
     clientManifest
   });
-
-
 
   await serverRender(ctx, renderer, template);
 }

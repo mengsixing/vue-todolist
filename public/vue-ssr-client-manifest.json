@@ -1,24 +1,24 @@
 {
-  "publicPath": "",
+  "publicPath": "public",
   "all": [
     "resource/client/assets/images/bg-55db3d93.jpeg",
-    "0-6a33b1b1.js",
-    "1-6a33b1b1.css",
-    "1-6a33b1b1.js",
-    "main-6a33b1b1.css",
-    "main-6a33b1b1.js",
-    "runtime~main-6a33b1b1.js",
-    "vendors~main-6a33b1b1.js",
+    "0-389a555e.js",
+    "1-389a555e.css",
+    "1-389a555e.js",
+    "main-389a555e.css",
+    "main-389a555e.js",
+    "runtime~main-389a555e.js",
+    "vendors~main-389a555e.js",
     "index.html"
   ],
   "initial": [
-    "runtime~main-6a33b1b1.js",
-    "vendors~main-6a33b1b1.js",
-    "main-6a33b1b1.js"
+    "runtime~main-389a555e.js",
+    "vendors~main-389a555e.js",
+    "main-389a555e.js"
   ],
   "async": [
-    "0-6a33b1b1.js",
-    "1-6a33b1b1.js"
+    "0-389a555e.js",
+    "1-389a555e.js"
   ],
   "modules": {
     "76549652": [

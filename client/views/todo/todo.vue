@@ -22,83 +22,69 @@
 </template>
 
 <script>
-import Items from './item.vue';
-import Tabs from './tabs.vue';
+import Items from "./item.vue";
+import Tabs from "./tabs.vue";
 
 const filterType = {
-	all: 'all',
-	completed: 'completed',
-	uncompleted: 'uncompleted'
+  all: "all",
+  completed: "completed",
+  uncompleted: "uncompleted"
 };
 export default {
-	components: {
-		Items,
-		Tabs
-	},
-	data () {
+  components: {
+    Items,
+    Tabs
+  },
+  data() {
+    return {
+      todo: [],
+      filter: filterType.all,
+      filterType
+    };
+  },
+  computed: {
+    todoFilter() {
+      if (this.filter === this.filterType.all) {
+        return this.todo;
+      }
+      const isCompleted = this.filter === this.filterType.completed;
 
-		return {
-			todo: [],
-			filter: filterType.all,
-			filterType
-		};
-
-	},
-	computed: {
-		todoFilter () {
-
-			if (this.filter === this.filterType.all) {
-
-				return this.todo;
-
-			}
-			const isCompleted = this.filter === this.filterType.completed;
-
-			return this.todo.filter((item) => item.completed === isCompleted);
-
-		}
-	},
-	methods: {
-		addTodo (e) {
-
-			this.todo.unshift({
-				id: Math.random(),
-				completed: false,
-				content: e.target.value
-			});
-			e.target.value = '';
-
-		},
-		deleteTodo (id) {
-
-			this.todo = this.todo.filter((item) => item.id !== id);
-
-		},
-		filterTodo (filter) {
-
-			this.filter = filter;
-
-		},
-		changeFilter (type) {
-
-			this.filter = type;
-
-		},
-		clearAllCompleted () {
-
-			const result = this.todo.filter((item) => !item.completed);
-			this.todo = result;
-
-		}
-	}
+      return this.todo.filter(item => item.completed === isCompleted);
+    }
+  },
+  methods: {
+    addTodo(e) {
+      this.todo.unshift({
+        id: Math.random(),
+        completed: false,
+        content: e.target.value
+      });
+      e.target.value = "";
+    },
+    deleteTodo(id) {
+      this.todo = this.todo.filter(item => item.id !== id);
+    },
+    filterTodo(filter) {
+      this.filter = filter;
+    },
+    changeFilter(type) {
+      this.filter = type;
+    },
+    clearAllCompleted() {
+      const result = this.todo.filter(item => !item.completed);
+      this.todo = result;
+    }
+  }
 };
 </script>
 
 <style lang="less" scoped>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
 }
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
 .todo {

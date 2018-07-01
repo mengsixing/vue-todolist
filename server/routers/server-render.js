@@ -12,6 +12,7 @@ module.exports = async (ctx, renderer, template) => {
   try {
     const appString = await renderer.renderToString(context);
 
+    // 控制路由
     if (context.router.currentRoute.fullPath !== ctx.path) {
       return ctx.redirect(context.router.currentRoute.fullPath)
     }
