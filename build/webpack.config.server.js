@@ -1,87 +1,95 @@
 const path = require('path')
-const ExtractPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack')
 const VueServerPlugin = require('vue-server-renderer/server-plugin')
-const {
-  VueLoaderPlugin
-} = require('vue-loader');
+
+const baseConfig = require('./webpack.config.base');
+const merge = require('webpack-merge');
+
+const isDev = process.env.NODE_ENV === 'development';
 
 let config
 
-process.env.NODE_ENV = 'development'
-
-const plugins = [
-  new ExtractPlugin('styles.[hash:8].css'),
+const commonPlugins = [
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
     'process.env.VUE_ENV': '"server"'
   }),
-  new VueLoaderPlugin(),
-  new VueServerPlugin()
-]
+  new VueServerPlugin(),
+];
 
-config = {
-  mode: 'development',
-  target: 'node',
-  entry: path.join(__dirname, '../client/server-entry.js'),
-  devtool: 'source-map',
-  output: {
-    libraryTarget: 'commonjs2',
-    filename: 'server-entry.js',
-    path: path.join(__dirname, '../server-build')
 
-  },
-  externals: Object.keys(require('../package.json').dependencies),
-  module: {
-    rules: [{
-        test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          preserveWhitepace: true,
-          extractCSS: false,
-          cssModules: {
-            localIdentName: '[hash:base64:5]',
-            camelCase: true
-          }
-        }
-      },
-      {
-        test: /\.jsx$/,
-        loader: 'babel-loader'
-      },
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
-      },
-      {
-        test: /\.(gif|jpg|jpeg|png|svg)$/,
-        use: [{
-          loader: 'url-loader',
-          options: {
-            limit: 1024,
-            name: 'resources/[path][name].[hash:8].[ext]'
-          }
-        }]
-      },
-      {
+if (isDev) {
+  config = merge(baseConfig, {
+    mode: 'development',
+    target: 'node',
+    entry: path.join(__dirname, '../client/server-entry.js'),
+    devtool: 'source-map',
+    output: {
+      libraryTarget: 'commonjs2',
+      filename: 'server-entry.js',
+      path: path.join(__dirname, '../server-build')
+    },
+    externals: Object.keys(require('../package.json').dependencies),
+    module: {
+      rules: [{
         test: /\.less/,
         use: [{
           loader: 'vue-style-loader'
         }, {
-          loader: 'css-loader' // translates CSS into CommonJS
+          loader: 'css-loader'
         }, {
           loader: 'postcss-loader',
           options: {
             sourceMap: true
           }
         }, {
-          loader: 'less-loader' // compiles Less to CSS
+          loader: 'less-loader'
         }]
-      },
-    ]
-  },
-  plugins
-};
+      }, ]
+    },
+    plugins: commonPlugins
+  });
+} else {
+  config = merge(baseConfig, {
+    mode: 'production',
+    target: 'node',
+    entry: path.join(__dirname, '../client/server-entry.js'),
+    devtool: 'source-map',
+    output: {
+      libraryTarget: 'commonjs2',
+      filename: 'server-entry.js',
+      path: path.join(__dirname, '../server-build')
+    },
+    externals: Object.keys(require('../package.json').dependencies),
+    module: {
+      rules: [{
+        test: /\.less/,
+        use: [{
+          loader: MiniCssExtractPlugin.loader,
+        }, {
+          loader: 'css-loader'
+        }, {
+          loader: 'postcss-loader',
+          options: {
+            sourceMap: true
+          }
+        }, {
+          loader: 'less-loader'
+        }]
+      }, ]
+    },
+    plugins: commonPlugins.concat([
+      new MiniCssExtractPlugin({
+        filename: "[name]-[hash:8].css",
+      })
+    ])
+  });
+}
+
+
+console.log(config);
+
+
 
 module.exports = config

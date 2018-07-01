@@ -7,12 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext js --ext jsx --ext vue ./client",
     "lint-fix": "eslint --fix --ext js --ext jsx --ext vue ./client",
-    "prebuild": "rimraf ./dist",
+    "prebuild": "rimraf ./public",
     "build": "webpack --config ./build/webpack.config.client.js",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.config.client.js",
     "practice": "cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.config.practive.js",
     "dev:client": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.client.js",
-    "dev:server": "node server/server.js"
+    "dev:server": "cross-env NODE_ENV=development node server/server.js"
   },
   "husky": {
     "hooks": {
@@ -35,10 +35,11 @@
     "ejs": "^2.6.1",
     "koa": "^2.5.1",
     "koa-router": "^7.4.0",
+    "koa-send": "^5.0.0",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",
-    "vuex": "^3.0.1",
-    "vue-server-renderer": "^2.5.16"
+    "vue-server-renderer": "^2.5.16",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^8.6.2",

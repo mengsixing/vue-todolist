@@ -1,12 +1,15 @@
 const path = require('path');
+const {
+  VueLoaderPlugin
+} = require('vue-loader');
 
 let config = {
   target:'web',
   entry: path.join(__dirname, 'client/index.js'),
   output: {
-    filename: 'bundle.js',
-    path: path.join(__dirname, '../dist'),
-    publicPath: 'http://127.0.0.1:9001/'
+    filename: 'bundle.[hash:8].js',
+    path: path.join(__dirname, '../public'),
+    publicPath: 'http://127.0.0.1:9001/public/'
   },
   module: {
     rules: [{
@@ -39,11 +42,8 @@ let config = {
       }
     ]
   },
-  // optimization: {
-  //   splitChunks: {
-  //     chunks: 'all'
-  //   },
-  //   runtimeChunk:true,
-  // },
+  plugins:[
+    new VueLoaderPlugin()
+  ]
 };
 module.exports = config;
