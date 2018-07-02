@@ -1,0 +1,16 @@
+{
+  "verbose": true,
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules",
+    ".eslintrc",
+    "client",
+    "build/webpack.config.client.js",
+    "public",
+    "server-build"
+  ],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "js json ejs"
+}
