@@ -33,6 +33,7 @@ app.use(async (ctx, next) => {
   }
 });
 
+// 让外部可以访问您的服务器，0.0.0.0，https://webpack.js.org/configuration/dev-server/#devserver-host
 const HOST = process.env.HOST || '0.0.0.0';
 const PORT = process.env.PORT || 3333;
 
