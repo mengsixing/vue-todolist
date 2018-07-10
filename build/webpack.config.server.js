@@ -18,7 +18,6 @@ const commonPlugins = [
   new VueServerPlugin(),
 ];
 
-
 if (isDev) {
   config = merge(baseConfig, {
     mode: 'development',
@@ -86,5 +85,7 @@ if (isDev) {
     ])
   });
 }
+
+console.log(config);
 
 module.exports = config

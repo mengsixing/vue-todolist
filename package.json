@@ -9,6 +9,7 @@
     "lint-fix": "eslint --fix --ext js --ext jsx --ext vue ./client",
     "prebuild": "rimraf ./public",
     "build": "webpack --config ./build/webpack.config.client.js",
+    "build:server": "webpack --config ./build/webpack.config.server.js",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.config.client.js",
     "practice": "cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.config.practive.js",
     "dev:client": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.client.js",

@@ -8,7 +8,6 @@ module.exports = async (ctx, renderer, template) => {
     url: ctx.path
   };
 
-
   try {
     const appString = await renderer.renderToString(context);
 
