@@ -15,7 +15,6 @@ const commonPlugins = [
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
     'process.env.VUE_ENV': '"server"'
   }),
-  new VueServerPlugin(),
 ];
 
 if (isDev) {
@@ -47,7 +46,9 @@ if (isDev) {
         }]
       }, ]
     },
-    plugins: commonPlugins
+    plugins: commonPlugins.concat([
+      new VueServerPlugin(),
+    ])
   });
 } else {
   config = merge(baseConfig, {
