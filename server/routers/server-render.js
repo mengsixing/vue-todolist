@@ -7,6 +7,7 @@ module.exports = async (ctx, renderer, template) => {
   let context = {
     url: ctx.path
   };
+  debugger
 
   try {
     const appString = await renderer.renderToString(context);

@@ -4,7 +4,7 @@ const path = require('path');
 
 const app = new Koa();
 
-const pageRouter = require('./routers/dev-ssr');
+const pageRouter = require('./routers/ssr');
 
 
 const isDev = process.env.NODE_ENV === 'development'

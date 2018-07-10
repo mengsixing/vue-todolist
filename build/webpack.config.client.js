@@ -58,7 +58,7 @@ if (isDev) {
 } else {
   config = merge(baseConfig, {
     mode: 'production',
-    entry: path.join(__dirname, '../client/index.js'),
+    entry: path.join(__dirname, '../client/client-entry.js'),
     output: {
       filename: '[name]-[hash:8].js',
       publicPath:'public'

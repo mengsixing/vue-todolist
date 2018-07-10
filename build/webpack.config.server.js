@@ -15,6 +15,7 @@ const commonPlugins = [
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
     'process.env.VUE_ENV': '"server"'
   }),
+  new VueServerPlugin(),
 ];
 
 if (isDev) {
@@ -47,7 +48,6 @@ if (isDev) {
       }, ]
     },
     plugins: commonPlugins.concat([
-      new VueServerPlugin(),
     ])
   });
 } else {
@@ -82,7 +82,7 @@ if (isDev) {
     plugins: commonPlugins.concat([
       new MiniCssExtractPlugin({
         filename: "[name]-[hash:8].css",
-      })
+      }),
     ])
   });
 }
