@@ -6,7 +6,6 @@ const VueServerRenderer = require('vue-server-renderer');
 const serverRender = require('./server-render');
 
 const handleSSR = async (ctx) => {
-  debugger
 
   const clientManifest = require('../../public/vue-ssr-client-manifest.json')
 

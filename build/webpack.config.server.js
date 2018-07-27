@@ -87,6 +87,4 @@ if (isDev) {
   });
 }
 
-console.log(config);
-
 module.exports = config

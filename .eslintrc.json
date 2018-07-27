@@ -9,7 +9,8 @@
       "node": true
     },
     "rules": {
-      "vue/html-self-closing": "off"
+      "vue/html-self-closing": "off",
+      "no-console":"off"
     },
     "parserOptions":{
       "parser": "babel-eslint"
