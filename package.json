@@ -6,16 +6,18 @@
   "scripts": {
     "lint": "eslint --ext js --ext jsx --ext vue ./client",
     "lint-fix": "eslint --fix --ext js --ext jsx --ext vue ./client",
-    "prebuild": "rimraf ./public || rimaf ./build-server",
+    "prebuild": "rimraf ./public ./server-build",
     "build": "cross-env NODE_ENV=production webpack --config ./build/webpack.config.client.js && cross-env NODE_ENV=production webpack --config ./build/webpack.config.server.js",
     "practice": "cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.config.practive.js",
     "dev:client": "cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.config.client.js",
     "dev:server": "nodemon server/server.js",
-    "dev": "yarn run dev:client & yarn run dev:server"
+    "dev": "yarn run dev:client & yarn run dev:server",
+    "build:client": "cross-env NODE_ENV=production webpack --config ./build/webpack.config.client.js",
+    "build:server": "cross-env NODE_ENV=production webpack --config ./build/webpack.config.server.js",
+    "start": "nodemon server/server.js"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint",
       "pre-push": "npm run lint"
     }
   },
