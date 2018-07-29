@@ -1,5 +1,6 @@
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ExtractPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
@@ -8,6 +9,8 @@ const VueClientPlugin = require('vue-server-renderer/client-plugin');
 
 const baseConfig = require('./webpack.config.base.js');
 const isDev = process.env.NODE_ENV === 'development';
+
+console.log('isDev:', isDev);
 
 // 客户端公用的plugin
 const defaultPlugins = [
@@ -61,17 +64,24 @@ if (isDev) {
     entry: path.join(__dirname, '../client/client-entry.js'),
     output: {
       filename: '[name]-[hash:8].js',
-      publicPath:'public'
+      publicPath:'/public/'
     },
     module: {
       rules: [{
         test: /\.less$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'postcss-loader',
-          'less-loader'
-        ]
+        use: ExtractPlugin.extract({
+          fallback: 'vue-style-loader',
+          use: [
+            'css-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: true
+              }
+            },
+            'less-loader'
+          ]
+        })
       }]
     },
     optimization: {
@@ -82,13 +92,13 @@ if (isDev) {
     },
 
     plugins: defaultPlugins.concat([
-      new MiniCssExtractPlugin({
-        filename: '[name]-[hash:8].css'
-      }),
+      new ExtractPlugin('[name]-[hash:8].css'),
       new webpack.NamedChunksPlugin()
     ]),
 
   });
 }
+
+console.log(config);
 
 module.exports = config;

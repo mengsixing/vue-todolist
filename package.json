@@ -14,7 +14,7 @@
     "dev": "yarn run dev:client & yarn run dev:server",
     "build:client": "cross-env NODE_ENV=production webpack --config ./build/webpack.config.client.js",
     "build:server": "cross-env NODE_ENV=production webpack --config ./build/webpack.config.server.js",
-    "start": "nodemon server/server.js"
+    "start": "cross-env NODE_ENV=production node server/server.js"
   },
   "husky": {
     "hooks": {

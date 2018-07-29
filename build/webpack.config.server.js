@@ -1,5 +1,6 @@
 const path = require('path')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ExtractPlugin = require('extract-text-webpack-plugin')
 const webpack = require('webpack')
 const VueServerPlugin = require('vue-server-renderer/server-plugin')
 
@@ -7,6 +8,8 @@ const baseConfig = require('./webpack.config.base');
 const merge = require('webpack-merge');
 
 const isDev = process.env.NODE_ENV === 'development';
+
+console.log('服务端打包isDev:', isDev);
 
 let config
 
@@ -16,41 +19,42 @@ const commonPlugins = [
     'process.env.VUE_ENV': '"server"'
   }),
   new VueServerPlugin(),
+  new ExtractPlugin('styles.css'),
 ];
 
-if (isDev) {
-  config = merge(baseConfig, {
-    mode: 'development',
-    target: 'node',
-    entry: path.join(__dirname, '../client/server-entry.js'),
-    devtool: 'source-map',
-    output: {
-      libraryTarget: 'commonjs2',
-      filename: 'server-entry.js',
-      path: path.join(__dirname, '../server-build')
-    },
-    externals: Object.keys(require('../package.json').dependencies),
-    module: {
-      rules: [{
-        test: /\.less/,
-        use: [{
-          loader: 'vue-style-loader'
-        }, {
-          loader: 'css-loader'
-        }, {
-          loader: 'postcss-loader',
-          options: {
-            sourceMap: true
-          }
-        }, {
-          loader: 'less-loader'
-        }]
-      }, ]
-    },
-    plugins: commonPlugins.concat([
-    ])
-  });
-} else {
+// if (isDev) {
+//   config = merge(baseConfig, {
+//     mode: 'development',
+//     target: 'node',
+//     entry: path.join(__dirname, '../client/server-entry.js'),
+//     devtool: 'source-map',
+//     output: {
+//       libraryTarget: 'commonjs2',
+//       filename: 'server-entry.js',
+//       path: path.join(__dirname, '../server-build'),
+//     },
+//     externals: Object.keys(require('../package.json').dependencies),
+//     module: {
+//       rules: [{
+//         test: /\.less/,
+//         use: [{
+//           loader: 'vue-style-loader'
+//         }, {
+//           loader: 'css-loader'
+//         }, {
+//           loader: 'postcss-loader',
+//           options: {
+//             sourceMap: true
+//           }
+//         }, {
+//           loader: 'less-loader'
+//         }]
+//       }, ]
+//     },
+//     plugins: commonPlugins.concat([
+//     ])
+//   });
+// } else {
   config = merge(baseConfig, {
     mode: 'production',
     target: 'node',
@@ -59,32 +63,47 @@ if (isDev) {
     output: {
       libraryTarget: 'commonjs2',
       filename: 'server-entry.js',
-      path: path.join(__dirname, '../server-build')
+      path: path.join(__dirname, '../server-build'),
     },
     externals: Object.keys(require('../package.json').dependencies),
     module: {
       rules: [{
         test: /\.less/,
-        use: [{
-          loader: MiniCssExtractPlugin.loader,
-        }, {
-          loader: 'css-loader'
-        }, {
-          loader: 'postcss-loader',
-          options: {
-            sourceMap: true
-          }
-        }, {
-          loader: 'less-loader'
-        }]
+        // use: [{
+        //   loader: MiniCssExtractPlugin.loader,
+        // }, {
+        //   loader: 'css-loader'
+        // }, {
+        //   loader: 'postcss-loader',
+        //   options: {
+        //     sourceMap: true
+        //   }
+        // }, {
+        //   loader: 'less-loader'
+        // }]
+        use: ExtractPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: true
+              }
+            },
+            'less-loader'
+          ]
+        })
       }, ]
     },
     plugins: commonPlugins.concat([
-      new MiniCssExtractPlugin({
-        filename: "[name]-[hash:8].css",
-      }),
+      // new MiniCssExtractPlugin({
+      //   filename: "[name]-[hash:8].css",
+      // }),
     ])
   });
-}
+// }
+
+console.log(config);
 
 module.exports = config

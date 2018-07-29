@@ -1,10 +1,13 @@
 const Koa = require("koa");
 const send = require("koa-send");
 const path = require("path");
+const staticRouter = require('./routers/static')
 
 const app = new Koa();
 
 let pageRouter;
+
+console.log('查看环境：', process.env.NODE_ENV);
 
 if (process.env.NODE_ENV === "development") {
   pageRouter = require("./routers/dev-ssr");
@@ -17,7 +20,7 @@ const isDev = process.env.NODE_ENV === "development";
 // 处理favicon.ico 图标
 app.use(async (ctx, next) => {
   if ("/favicon.ico" == ctx.path) {
-    await send(ctx, path.join(ctx.path, "../"));
+    await send(ctx, '/favicon.ico', { root: path.join(__dirname, '../') })
   } else {
     await next();
   }
@@ -41,7 +44,10 @@ app.use(async (ctx, next) => {
 const HOST = process.env.HOST || "0.0.0.0";
 const PORT = process.env.PORT || 3333;
 
-app.use(pageRouter.routes()).use(pageRouter.allowedMethods);
+app.use(staticRouter.routes())
+app.use(pageRouter.routes())
+app.use(pageRouter.allowedMethods);
+
 
 app.listen(PORT, HOST, () => {
   console.log(`server is listening on port ${PORT}`);
