@@ -21,7 +21,6 @@ let config = {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
-          // enable CSS extraction
           extractCSS: true
         }
       },

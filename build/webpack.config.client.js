@@ -1,6 +1,5 @@
 const path = require('path');
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const ExtractPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
@@ -64,24 +63,20 @@ if (isDev) {
     entry: path.join(__dirname, '../client/client-entry.js'),
     output: {
       filename: '[name]-[hash:8].js',
-      publicPath:'/public/'
+      publicPath: '/public/'
     },
     module: {
       rules: [{
         test: /\.less$/,
-        use: ExtractPlugin.extract({
-          fallback: 'vue-style-loader',
-          use: [
-            'css-loader',
-            {
-              loader: 'postcss-loader',
-              options: {
-                sourceMap: true
-              }
-            },
-            'less-loader'
-          ]
-        })
+        use: [{
+          loader: MiniCssExtractPlugin.loader,
+        }, {
+          loader: 'css-loader'
+        }, {
+          loader: 'postcss-loader',
+        }, {
+          loader: 'less-loader'
+        }]
       }]
     },
     optimization: {
@@ -92,13 +87,13 @@ if (isDev) {
     },
 
     plugins: defaultPlugins.concat([
-      new ExtractPlugin('[name]-[hash:8].css'),
+      new MiniCssExtractPlugin({
+        filename: "[name]-[hash:8].css",
+      }),
       new webpack.NamedChunksPlugin()
     ]),
 
   });
 }
-
-console.log(config);
 
 module.exports = config;
