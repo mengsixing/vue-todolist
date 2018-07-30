@@ -28,6 +28,18 @@
 
 6、抽离具体渲染过程，新建server-render.js，调用renderToStinrg方法生成渲染字符串。
 
+#### 采坑
+
+1、服务端没有dom，不能使用style-loader处理css，官网文档采用extract-text-webpack-plugin分离css
+
+2、extract-text-webpack-plugin在webpack4已经废弃，推荐使用的mini-css-extract-plugin 实现分离机制和VueServerPlugin不兼容。
+
+3、故走到这里就走不通了。
+
+
+
+
+
 
 
 
