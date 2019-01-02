@@ -1,5 +1,7 @@
 # vue-todolist
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/yhlben/vue-todolist.svg)](https://greenkeeper.io/)
+
 ## vue-ssr 总结
 
 服务端渲染两种方式：
