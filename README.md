@@ -3,8 +3,9 @@
 ## vue-ssr 总结
 
 服务端渲染两种方式：
-* createRenderer
-* createBundleRenderer
+
+- createRenderer
+- createBundleRenderer
 
 ### createBundleRenderer方式
 
@@ -28,18 +29,24 @@
 
 6、抽离具体渲染过程，新建server-render.js，调用renderToStinrg方法生成渲染字符串。
 
+#### 核心代码
+
+```js
+// bundle: vue-ssr-server-bundle.json 生成
+// clientMani fest:vue-ssr-client-manifest.json 生成
+const renderer = VueServerRenderer.createBundleRenderer(bundle, {
+    inject: false,
+    clientManifest
+  });
+
+// 得到渲染完成后的html字符串
+const html = await renderer.renderToString(context);
+```
+
 #### 采坑
 
 1、服务端没有dom，不能使用style-loader处理css，官网文档采用extract-text-webpack-plugin分离css
 
 2、extract-text-webpack-plugin在webpack4已经废弃，推荐使用的mini-css-extract-plugin 实现分离机制和VueServerPlugin不兼容。
 
-3、故走到这里就走不通了。
-
-
-
-
-
-
-
-
+3、故走到这里就走不通了（待续）。
