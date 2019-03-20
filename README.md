@@ -25,9 +25,13 @@
 
   5.1、获取 VueServerPlugin 创建的 vue-ssr-server-bundle.json 文件，并创建 bundle。
 
+    - bundle 文件就是将 vue 代码打包后的文件，包含了页面上所有的内容。
+
   5.2、获取 VueClientPlugin 创建的 vue-ssr-client-manifest.json 文件，生成clientManifest。
 
-  5.3、使用 vue-server-renderer 库的 createBundleRenderer 方法。
+    - 此对象包含了 webpack 整个构建过程的信息，从而可以让 bundle renderer 自动推导需要在 HTML 模板中注入的内容。
+
+  5.3、使用 vue-server-renderer 库的 createBundleRenderer 方法组合 client 和 server 生成的文件，并输出。
 
 6、抽离具体渲染过程，新建server-render.js，调用renderToStinrg方法生成渲染字符串。
 
@@ -51,4 +55,4 @@ const html = await renderer.renderToString(context);
 
 2、extract-text-webpack-plugin在webpack4已经废弃，推荐使用的mini-css-extract-plugin 实现分离机制和VueServerPlugin不兼容。
 
-3、故走到这里就走不通了（待续）。
+3、未完（待续）。
